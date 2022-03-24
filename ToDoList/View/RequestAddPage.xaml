@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="ToDoList.View.RequestAddPage">
+    <ContentPage.Content>
+        <StackLayout Padding="25">
+            <Label Text="Add new task" FontSize="28" TextColor="Black"  HorizontalOptions="Center"/>
+            <Entry  Placeholder="Enter Title" Text="{Binding Title}" />
+            <Editor Placeholder="Enter Description if you want" Text="{Binding Description}" AutoSize="TextChanges"/>
+            <DatePicker Date="{Binding Date}" />
+            <TimePicker Time="{Binding Time}"/>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+
+                <Button Grid.Row="0" Grid.Column="0" Text="Add task" IsVisible="{Binding IsButtonActive}" Command="{Binding AddRequestCommand}"/>
+                <Button Grid.Row="0" Grid.Column="1" Text="Back" Command="{Binding BackCommand}"/>
+            </Grid>
+
+            
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,117 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="ToDoList.View.CalenderPage">
+
+    <ContentPage.Content>
+        <StackLayout>
+            <Grid Margin="25">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="0.5*"/>
+                    <RowDefinition Height="5.5*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="3*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Button Text="&lt;" Grid.Row="0" FontSize="18" Padding="0" Grid.Column="0" HorizontalOptions="Center" Command="{Binding LeftButtonCommand}"/>
+                <Label Text="{Binding TitleDate}" FontSize="26" HorizontalOptions="Center" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="5"/>
+                <Button Text="&gt;" Grid.Row="0" FontSize="18" Padding="0" HorizontalOptions="Center" Grid.Column="6" Command="{Binding RightButtonCommand}"/>
+
+                <Label Text="Sun" HorizontalOptions="Center" Grid.Row="1" Grid.Column="0"/>
+                <Label Text="Mon" HorizontalOptions="Center" Grid.Row="1" Grid.Column="1"/>
+                <Label Text="Tue" HorizontalOptions="Center" Grid.Row="1" Grid.Column="2"/>
+                <Label Text="Wed" HorizontalOptions="Center" Grid.Row="1" Grid.Column="3"/>
+                <Label Text="Thu" HorizontalOptions="Center" Grid.Row="1" Grid.Column="4"/>
+                <Label Text="Fri" HorizontalOptions="Center" Grid.Row="1" Grid.Column="5"/>
+                <Label Text="Sat" HorizontalOptions="Center" Grid.Row="1" Grid.Column="6"/>
+
+                <CollectionView
+                    ItemsSource="{Binding CalenderView}"
+                    Grid.Column="0" Grid.ColumnSpan="7" 
+                    Grid.Row="2"
+                    ItemsLayout="VerticalGrid,7"
+                    SelectionMode="Single"
+                    SelectedItem="{Binding SelectedDay}"
+                    SelectionChangedCommand="{Binding OpenDayCommand}">
+                    
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <StackLayout>
+                                <Frame Margin="0" Padding="0" BorderColor="Black" CornerRadius="10">
+                                    <StackLayout>
+                                        <Label x:Name="dateDay" Text="{Binding DateDay}" Margin="0"   HorizontalOptions="Center"  FontSize="16"/>
+                                        <Label Text="{Binding TaskNumber}" TextColor="Green" Margin="0" HorizontalOptions="Center"  FontSize="12"/>
+                                    </StackLayout>
+                                </Frame>
+                            </StackLayout>
+                           
+                            
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+
+                </CollectionView>
+
+                <StackLayout Grid.Column="6" Grid.Row="3" >
+                    <Button Text="+" IsVisible="{Binding IsButtonVisible}" 
+                            Command="{Binding RequestAddPageCommand}" 
+                            CornerRadius="5" FontSize="18"/>
+                </StackLayout>
+
+                <Label Grid.Column="0" VerticalOptions="Center" Grid.Row="3" Grid.ColumnSpan="6" FontSize="19" Text="{Binding DayLabel}" />
+
+                <CollectionView
+                    ItemsSource="{Binding DayRequests}"
+                    Grid.Column="0" Grid.ColumnSpan="6" 
+                    Grid.Row="4"
+                    IsVisible="{Binding IsDayVisible}"
+                    SelectionMode="Single"
+                        SelectedItem="{Binding SelectedRequest}"
+                        SelectionChangedCommand="{Binding SelectedRequestChangeCommand}">
+                    
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <StackLayout>
+                                <Frame Margin="0,5"  BorderColor="Blue">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="3*"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"/>
+                                        </Grid.RowDefinitions>
+
+                                        <Label FontSize="26" Grid.Row="0" Grid.Column="0" Text="{Binding Title}"/>
+                                        <Label FontSize="26" Grid.Row="0" Grid.Column="1" HorizontalOptions="EndAndExpand">
+                                            <Label.Text>
+                                                <MultiBinding StringFormat="{}{0:D2}:{1:D2}">
+                                                    <Binding Path="Hour.Hours"/>
+                                                    <Binding Path="Hour.Minutes"/>
+                                                </MultiBinding>
+                                            </Label.Text>
+                                        </Label>
+                                    </Grid>
+                                </Frame>
+                            </StackLayout>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
+                
+            </Grid>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

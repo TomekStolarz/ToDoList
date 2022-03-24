@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="ToDoList.View.DetailPage">
+    <ContentPage.Content>
+        <StackLayout Padding="25">
+            <Label HorizontalOptions="Center" FontSize="32"  TextColor="Black" Text="{Binding Title}"/>
+            <StackLayout Orientation="Horizontal">
+                <Label FontSize="24" TextColor="{Binding Color}" Text="{Binding DateLbl}"/>
+                <Label FontSize="24"  HorizontalOptions="EndAndExpand">
+                    <Label.Text>
+                        <MultiBinding StringFormat="{}{0:D2}:{1:D2}">
+                            <Binding Path="Hour.Hours"/>
+                            <Binding Path="Hour.Minutes"/>
+                        </MultiBinding>
+                    </Label.Text>
+                </Label>
+            </StackLayout>
+           
+            <Label Text="Task is finished!" FontSize="16" TextColor="Green" IsVisible="{Binding IsLabelVisible}"/>
+            <Label FontSize="22" TextColor="Gray" Text="{Binding Descripiton}"/>
+            
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+
+                <Button CornerRadius="5" Grid.Row="0" Grid.Column="0" Text="Finish Task" IsVisible="{Binding IsTaskFinished}" Command="{Binding FinishRequestcommand}"/>
+                <Button CornerRadius="5" Grid.Row="0" Grid.Column="1" Text="Back" Command="{Binding BackCommand}"/>
+            </Grid>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

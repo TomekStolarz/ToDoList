@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             xmlns:local="clr-namespace:ToDoList.ViewModel"
+             x:Class="ToDoList.MainPage"
+             Title="{Binding NavTitle}">
+    
+   
+
+    <StackLayout Margin="15, 5, 5, 5" BackgroundColor="White">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <ImageButton Grid.Row="0" BackgroundColor="GhostWhite" Grid.Column="0" Source="Calender.png" Command="{Binding OpenCalenderCommand}"/>
+            <Label Grid.Row="0" Grid.Column="1"  HorizontalOptions="Center" Text="{Binding Today}" FontSize="28" FontFamily="Courier New"/>
+            <Button CornerRadius="30" BackgroundColor="GhostWhite" BorderWidth="3" BorderColor="Gray" Grid.Row="0" Grid.Column="2" WidthRequest="50" Text="+" FontSize="Large" Command="{Binding AddCommand}"/>
+        </Grid>
+        
+
+      <StackLayout Orientation="Horizontal" BackgroundColor="White">
+            <Label Text="To Do List" FontSize="48" FontFamily="Comic Sans MS" FontAttributes="Italic"/>
+            <Image Source="Check.png" Margin="15,0,0,0" HeightRequest="50" />
+        </StackLayout>
+
+
+        <Label Text="No task for today!"  IsVisible="{Binding Path=IsLabelVisible}" FontSize="40" Margin="0,15,0,0" HorizontalOptions="Center"/>
+
+        <CollectionView ItemsSource="{Binding Requests}" 
+                        Grid.Row="0" Grid.Column="0" 
+                        IsVisible="{Binding Path=IsListVisible}"
+                        SelectionMode="Single"
+                        SelectedItem="{Binding SelectedRequest}"
+                        SelectionChangedCommand="{Binding SelectedRequestChangeCommand}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <StackLayout>
+                        <Frame Margin="5,5,5,5"  OutlineColor="Blue">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="4*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                
+                                <Label FontSize="26" Grid.Row="0" Grid.Column="0" Text="{Binding Title}"/>
+                                <Label FontSize="26" Grid.Row="0" Grid.Column="1" HorizontalOptions="EndAndExpand">
+                                    <Label.Text>
+                                        <MultiBinding StringFormat="{}{0:D2}:{1:D2}">
+                                            <Binding Path="Hour.Hours"/>
+                                            <Binding Path="Hour.Minutes"/>
+                                        </MultiBinding>
+                                    </Label.Text>
+                                </Label>
+                            </Grid>
+                            
+                        </Frame>
+                    </StackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+
+
+
+    </StackLayout>
+
+</ContentPage>
